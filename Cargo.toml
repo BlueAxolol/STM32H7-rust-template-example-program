@@ -1,7 +1,7 @@
 [package]
 authors = ["Elias Gründhammer <gruendielias@gmail.com>"]
 name = "{{project-name}}"
-edition = "2025"
+edition = "2024"
 version = "0.1.0"
 
 # needed for each integration test
