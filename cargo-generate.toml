@@ -1,6 +1,3 @@
 [template]
-exclude = ["README.md"]
+exclude = ["**/README.md"]
 cargo_generate_version = ">=0.9.0"
-
-[placeholders]
-project_name = { prompt = "Enter your Project Name:", type = "string", default = "STM32H7-EXAMPLE" }
