@@ -1,0 +1,5 @@
+[template]
+cargo_generate_version = ">=0.9.0"
+
+[placeholders]
+project_name = { promt = "Enter your Project Name:", type = "string", default = "STM32H7-EXAMPLE" }
