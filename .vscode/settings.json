@@ -1,0 +1,35 @@
+// .vscode/settings.json
+{
+    // Rust Analyzer settings
+    "rust-analyzer.cargo.autoreload": true,
+    "rust-analyzer.checkOnSave": true,
+    "rust-analyzer.check.command": "clippy",
+    "rust-analyzer.check.allTargets": false,
+    "rust-analyzer.inlayHints.typeHints": true,
+    "rust-analyzer.inlayHints.parameterHints": true,
+    "rust-analyzer.inlayHints.chainingHints": true,
+    "rust-analyzer.procMacro.enable": true,
+    "rust-analyzer.completion.autoimport.enable": true,
+    // Format on save using rustfmt
+    "editor.formatOnSave": true,
+    "[rust]": {
+        "editor.defaultFormatter": "rust-lang.rust-analyzer"
+    },
+    // Files
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true,
+    // Terminal
+    "terminal.integrated.env.linux": {
+        "RUST_BACKTRACE": "1"
+    },
+    "terminal.integrated.env.windows": {
+        "RUST_BACKTRACE": "1"
+    },
+    "terminal.integrated.env.osx": {
+        "RUST_BACKTRACE": "1"
+    },
+    // Disable copilot
+    "github.copilot.enable": {
+        "*": false
+    }
+}
