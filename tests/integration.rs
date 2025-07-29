@@ -62,10 +62,9 @@ mod tests {
 
     #[test]
     fn button_press(ta: &mut TestArgs) {
-        // connect pb1 and pc0 to 3.3V
-        assert!(ta.pb1.is_high());
+        assert!(ta.pb1.is_low());
         delay(8_000_000);
-        assert!(ta.pc0.is_high());
+        assert!(ta.pc0.is_low());
         delay(8_000_000);
     }
 }

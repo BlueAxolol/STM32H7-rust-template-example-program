@@ -5,6 +5,7 @@
 // built in LEDs as outputs
 
 use cortex_m_semihosting::debug;
+use defmt::println;
 use defmt_rtt as _; // global logger
 use panic_probe as _;
 use stm32h7xx_hal as _; // memory layout
@@ -58,54 +59,10 @@ fn main() -> ! {
     // Get the delay provider.
     let mut delay = cp.SYST.delay(ccdr.clocks);
 
-    // gpio ports initialisation
-    let gpiob = dp.GPIOB.split(ccdr.peripheral.GPIOB);
-    let gpioe = dp.GPIOE.split(ccdr.peripheral.GPIOE);
-    let gpioc = dp.GPIOC.split(ccdr.peripheral.GPIOC);
-    // turn ports into outputs
-    let mut led_red = gpiob.pb14.into_push_pull_output();
-    let mut led_green = gpiob.pb0.into_push_pull_output();
-    let mut led_yellow = gpioe.pe1.into_push_pull_output();
-    // turn ports into inputs
-    let btn_a1 = gpioc.pc0.into_pull_down_input();
-    let btn_a2 = gpioc.pc3.into_pull_down_input();
-    let btn_a3 = gpiob.pb1.into_pull_down_input();
-    let user_btn = gpioc.pc13.into_pull_down_input();
-
-    // see the following examples for more info:
-    // https://github.com/stm32-rs/stm32h7xx-hal/blob/master/examples/blinky.rs (GPIO)
-    // https://github.com/stm32-rs/stm32h7xx-hal/blob/master/examples/serial.rs (UART)
-
-    // for rising edge detection
-    let mut btn_a2_prev = false;
-    let mut user_btn_prev = false;
-    led_yellow.set_low();
-
     loop {
-        // sets leds low if no button is pressed
-        led_green.set_low();
-        led_red.set_low();
-
-        // rising edge detection
-        if btn_a2.is_high() && btn_a2_prev {
-            led_yellow.toggle();
-        }
-        if user_btn.is_high() && user_btn_prev {
-            led_yellow.toggle();
-        }
-        // XOR for other btns (doesn't send if both buttons pressed simultaneously)
-        if btn_a3.is_high() ^ btn_a1.is_high() {
-            if btn_a3.is_high() {
-                led_red.set_high();
-            } else if btn_a1.is_high() {
-                led_green.set_high();
-            }
-        }
-        // resets btn a1 and user_btn for rising edge detection
-        btn_a2_prev = btn_a2.is_low();
-        user_btn_prev = user_btn.is_low();
-        // waits 5ms before starting loop again
-        delay.delay_ms(5_u8);
+        println!("Hello Rust!");
+        // waits 1s before starting loop again
+        delay.delay_ms(1000_u16);
     }
 }
 
