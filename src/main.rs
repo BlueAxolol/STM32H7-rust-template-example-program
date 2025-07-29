@@ -1,8 +1,8 @@
 #![no_main]
 #![no_std]
 
-// Program that uses pins A1, A2, A3, User_Btn on the Nucleo-H753ZI as inputs and the
-// built in LEDs as outputs, Also sends letters on button press (see code)
+// Program that uses pins A1 (PC0), A2 (PC3), A3 (PB1), User_Btn (PC13) on the Nucleo-H753ZI as inputs and the
+// built in LEDs as outputs
 
 use cortex_m_semihosting::debug;
 use defmt_rtt as _; // global logger
@@ -62,7 +62,6 @@ fn main() -> ! {
     let gpiob = dp.GPIOB.split(ccdr.peripheral.GPIOB);
     let gpioe = dp.GPIOE.split(ccdr.peripheral.GPIOE);
     let gpioc = dp.GPIOC.split(ccdr.peripheral.GPIOC);
-    let gpiod = dp.GPIOD.split(ccdr.peripheral.GPIOD);
     // turn ports into outputs
     let mut led_red = gpiob.pb14.into_push_pull_output();
     let mut led_green = gpiob.pb0.into_push_pull_output();
@@ -72,20 +71,7 @@ fn main() -> ! {
     let btn_a2 = gpioc.pc3.into_pull_down_input();
     let btn_a3 = gpiob.pb1.into_pull_down_input();
     let user_btn = gpioc.pc13.into_pull_down_input();
-    // TODO: initialize peripherals (UART and GPIOs)
-    let tx = gpiod.pd8.into_alternate();
-    let rx = gpiod.pd9.into_alternate();
-    let serial = dp
-        .USART3
-        .serial(
-            (tx, rx),
-            115_200.bps(),
-            ccdr.peripheral.USART3,
-            &ccdr.clocks,
-        )
-        .unwrap();
 
-    let (mut tx, _rx) = serial.split();
     // see the following examples for more info:
     // https://github.com/stm32-rs/stm32h7xx-hal/blob/master/examples/blinky.rs (GPIO)
     // https://github.com/stm32-rs/stm32h7xx-hal/blob/master/examples/serial.rs (UART)
@@ -103,26 +89,23 @@ fn main() -> ! {
         // rising edge detection
         if btn_a2.is_high() && btn_a2_prev {
             led_yellow.toggle();
-            block!(tx.write(b'p')).ok();
         }
         if user_btn.is_high() && user_btn_prev {
-            block!(tx.write(b'h')).ok();
+            led_yellow.toggle();
         }
         // XOR for other btns (doesn't send if both buttons pressed simultaneously)
         if btn_a3.is_high() ^ btn_a1.is_high() {
             if btn_a3.is_high() {
                 led_red.set_high();
-                block!(tx.write(b'd')).ok();
             } else if btn_a1.is_high() {
                 led_green.set_high();
-                block!(tx.write(b'u')).ok();
             }
         }
         // resets btn a1 and user_btn for rising edge detection
         btn_a2_prev = btn_a2.is_low();
         user_btn_prev = user_btn.is_low();
-        // waits 17ms before starting loop again
-        delay.delay_ms(17_u8);
+        // waits 5ms before starting loop again
+        delay.delay_ms(5_u8);
     }
 }
 
