@@ -13,7 +13,7 @@
       "chip": "STM32H753ZI",
       "coreConfigs": [
         {
-          "programBinary": "${workspaceFolder}/target/thumbv7em-none-eabihf/debug/rust-ping-pong-nucleo",
+          "programBinary": "${workspaceFolder}/target/thumbv7em-none-eabihf/debug/${workspaceFolderBasename}.exe",
           "coreIndex": 0,
           "rttEnabled": true
         }
