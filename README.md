@@ -30,7 +30,7 @@ cargo install cargo-generate
 #### Linux / Mac
 ```bash
 cargo generate \
-  --git https://github.com/BlueAxolol/STM32H7-rust-template-example-program \
+  --git https://github.com/BlueAxolol/STM32H7-rust-template \
   --branch main \
   --name my-app
 ```
@@ -38,7 +38,7 @@ cargo generate \
 #### Windows CMD
 ```cmd
 cargo generate ^
-  --git https://github.com/BlueAxolol/STM32H7-rust-template-example-program ^
+  --git https://github.com/BlueAxolol/STM32H7-rust-template ^
   --branch main ^
   --name my-app
 ```
@@ -46,13 +46,13 @@ cargo generate ^
 #### Windows PowerShell
 ```powershell
 cargo generate `
-  --git https://github.com/BlueAxolol/STM32H7-rust-template-example-program `
+  --git https://github.com/BlueAxolol/STM32H7-rust-template `
   --branch main `
   --name my-app
 ```
 
 > *Note:* change `my-app` to your project name.\
-> *Note:* you can also run `cargo generate --git https://github.com/BlueAxolol/STM32H7-rust-template-example-program`
+> *Note:* you can also run `cargo generate --git https://github.com/BlueAxolol/STM32H7-rust-template`
 
 There now should be a new folder `my-app` with the template files in it.
 
